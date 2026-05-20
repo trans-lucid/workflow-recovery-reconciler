@@ -9,3 +9,12 @@
 | 5 | agent-trace-evaluator | golden-template-candidate | AI agent evals | fake trace API, Jaeger | passed in prior repo | passed in prior repo | Fresh-clone proof handled separately |
 | 6 | payment-recovery-state-machine | golden | fintech backend recovery | Postgres, WireMock, LocalStack SQS, MailHog | passed | passed | Distinct from inbound webhook ledger |
 | 7 | workflow-recovery-reconciler | golden | backend/platform workflow recovery | Postgres, WireMock, LocalStack SQS | passed | passed | Fresh-clone proof passed |
+## Machine-Readable Contract Migration
+
+- machine_readable_manifest: present
+- root_make_aliases: present
+- render_context_support: present
+- check_render_contract: present
+- scan_safety_uses_manifest: present
+- remote_ci_manifest_validation: pending
+

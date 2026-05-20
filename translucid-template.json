@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "template_id": "template007",
+  "template_slug": "workflow-recovery-reconciler",
+  "title": "Workflow Recovery Reconciler",
+  "render_command": "make render",
+  "scan_command": "make scan-safety",
+  "validate_solution_command": "make validate-solution",
+  "validate_expected_failure_command": "make validate-candidate-main-expected-failure",
+  "validate_docker_command": "make validate-docker-integration",
+  "validate_all_command": "make validate",
+  "generated_candidate_dir": "generated/main",
+  "generated_solution_dir": "generated/solution",
+  "template_context_file": "template_context.json",
+  "requires_docker_compose": true,
+  "expected_failure_markers": [
+    "duplicate_external_start",
+    "stale_state_misclassified",
+    "missing_attempt_history",
+    "unsafe_retry"
+  ],
+  "candidate_public_commands": [
+    "make test-unit"
+  ],
+  "candidate_docker_commands": [
+    "make dev",
+    "make seed",
+    "make test-integration",
+    "make clean"
+  ],
+  "forbid_manual_restructure": true,
+  "candidate_main_forbidden_paths": [
+    "solution/",
+    "evaluator/",
+    "tests_hidden/",
+    "fixtures_hidden/",
+    "SOLUTION.md",
+    "SOLUTION.md.j2",
+    "rubric.md",
+    "source-dossiers/",
+    "template.yaml",
+    "metadata/"
+  ]
+}

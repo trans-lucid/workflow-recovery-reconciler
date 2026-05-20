@@ -408,3 +408,38 @@ Do not mark a template as a golden pattern until:
 - fresh-clone validation passes
 - no lingering Docker containers remain after validation
 - repo visibility is set correctly for the current phase
+
+## Machine-Readable Template Manifest
+
+Every template must include `translucid-template.json` at the repository root.
+
+Challenge creation agents must read this file first and use its render, validation, scan, and generated-directory commands exactly.
+
+If the manifest exists, the agent must not infer commands from README prose.
+
+If the manifest is missing, the agent should mark the template as legacy or needs_attention unless legacy fallback is explicitly allowed.
+
+The manifest must include:
+
+- render command
+- scan command
+- solution validation command
+- expected-failure validation command
+- Docker validation command
+- generated candidate directory
+- generated solution directory
+- expected failure markers
+- forbidden candidate-main paths
+- whether Docker Compose is required
+- `forbid_manual_restructure: true`
+
+## No Manual Restructure Rule
+
+The challenge creation agent must not copy `candidate/` to root manually, invent a solution-branch layout, or edit hidden evaluator tests as part of normal generation.
+
+Normal generation means:
+
+template render -> generated/main -> generated/solution.
+
+Manual repair is only allowed if a template validation command fails and the exact blocker is recorded.
+
