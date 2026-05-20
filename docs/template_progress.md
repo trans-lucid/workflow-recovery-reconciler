@@ -8,4 +8,4 @@
 | 4 | streaming-chat-budget-tools | golden-template-candidate | full-stack AI streaming | local fake model/tool simulator | passed in prior repo | passed in prior repo | UI-level gate added before golden |
 | 5 | agent-trace-evaluator | golden-template-candidate | AI agent evals | fake trace API, Jaeger | passed in prior repo | passed in prior repo | Fresh-clone proof handled separately |
 | 6 | payment-recovery-state-machine | golden | fintech backend recovery | Postgres, WireMock, LocalStack SQS, MailHog | passed | passed | Distinct from inbound webhook ledger |
-| 7 | workflow-recovery-reconciler | golden-template-candidate | backend/platform workflow recovery | Postgres, WireMock, LocalStack SQS | passed | pending | Awaiting remote CI and fresh-clone proof |
+| 7 | workflow-recovery-reconciler | golden | backend/platform workflow recovery | Postgres, WireMock, LocalStack SQS | passed | passed | Fresh-clone proof passed |
