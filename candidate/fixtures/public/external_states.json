@@ -1,0 +1,13 @@
+{
+  "public-workspace-001": {
+    "external_job_id": "wiremock-public-workspace-001",
+    "state": "running",
+    "evidence": "external workflow is still running"
+  },
+  "public-completed": {
+    "external_job_id": "wiremock-public-completed",
+    "state": "completed",
+    "evidence": "external service reports completion"
+  }
+}
+

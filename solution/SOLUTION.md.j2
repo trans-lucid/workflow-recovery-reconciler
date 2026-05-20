@@ -1,0 +1,14 @@
+# Solution Notes
+
+The reference solution fixes the unsafe workflow path by treating the request key as the idempotency boundary, preserving every external attempt, and making stale workflow sweeping a reconciliation action rather than a terminal failure.
+
+Key behaviors:
+
+- Repeated `request_key` starts return the existing workflow and do not call the external service again.
+- External timeouts become `needs_attention` with attempt evidence instead of terminal `failed`.
+- The sweeper queues stale workflows for reconciliation and deduplicates repeated sweeper runs.
+- The reconciler lets external truth win for completed/running/non-retryable/unknown states.
+- Reports include local state, attempt history, audit events, external evidence, blockers, and next actions.
+
+The implementation intentionally avoids live cloud services and uses only local Postgres, WireMock, and LocalStack SQS in integration validation.
+

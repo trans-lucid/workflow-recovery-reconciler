@@ -1,0 +1,72 @@
+id: workflow-recovery-reconciler
+title: Workflow Recovery Reconciler
+area: backend-platform
+language: python
+roles:
+  - Backend Engineer
+  - Platform Engineer
+  - Staff Backend
+  - Infrastructure Engineer
+seniority:
+  - senior
+  - staff
+  - principal
+time_minutes:
+  medium: 75
+  hard: 100
+  staff: 130
+local_environment:
+  required:
+    - docker
+    - docker-compose
+  public_services:
+    - name: postgres
+      purpose: durable workflow state, attempts, leases, and audit log
+    - name: wiremock
+      purpose: local external control-plane API simulator
+    - name: localstack
+      purpose: local SQS recovery queue
+  hidden_services:
+    - name: docker-compose.evaluator
+      purpose: stricter simulator configuration and hidden fixtures
+  no_external_credentials: true
+  no_cloud_calls: true
+evaluation_axes:
+  - idempotent workflow creation
+  - durable state transitions
+  - timeout reconciliation
+  - stale workflow sweeping
+  - retry safety
+  - operator visibility
+source_signals:
+  - workflow
+  - control plane
+  - temporal
+  - retry
+  - idempotency
+  - background job
+  - provisioning
+  - reconciler
+  - sweeper
+  - external service
+candidate_expected_failure:
+  - duplicate_external_start
+  - stale_state_misclassified
+  - missing_attempt_history
+  - unsafe_retry
+hidden_test_strategy:
+  - external truth beats stale local state
+  - unknown external truth requires attention
+  - concurrent sweepers are idempotent
+  - crash retry preserves attempt history
+  - non-retryable failures stop retry loops
+  - operator report includes blocker and next action
+forbidden:
+  - one-file-helper
+  - in-memory-only-production-path
+  - hardcoded-fixtures
+  - parser-only
+  - no-durable-state
+  - bypass-wiremock
+  - bypass-recovery-queue
+

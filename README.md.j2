@@ -1,0 +1,57 @@
+# Workflow Recovery Reconciler
+
+You are inheriting a control-plane service where long-running workflows can get stuck between local state and the external service that actually runs the work.
+
+The service starts workflow jobs, stores durable state, sweeps stale records, reconciles against external truth, and writes an operator report. The current implementation is unsafe under retries, timeouts, duplicate starts, stale workflows, and ambiguous external status.
+
+## What You Are Building
+
+Repair the workflow recovery path so the system can:
+
+- Create workflows idempotently.
+- Preserve attempt history across retries and crashes.
+- Sweep stale workflows without guessing incorrectly.
+- Reconcile local state against external service truth.
+- Avoid duplicate external starts and duplicate recovery actions.
+- Produce an operator-readable recovery report.
+
+## Local Simulator
+
+The repo runs with local services:
+
+- Postgres for workflow state, attempts, leases, and audit logs.
+- WireMock for the external control-plane service.
+- LocalStack SQS for the recovery queue.
+
+No real cloud credentials or external services are needed.
+
+## Main Files
+
+You will likely edit:
+
+- `src/runner.py`
+- `src/sweeper.py`
+- `src/reconciler.py`
+- `src/workflow_store.py`
+- `src/status_report.py`
+
+## Commands
+
+```bash
+make dev
+make seed
+make test
+make test-integration
+make run
+```
+
+`make dev` starts Postgres, WireMock, and LocalStack. `make seed` migrates Postgres, resets simulator state, configures WireMock, and creates the local SQS queue.
+
+## Deliverables
+
+- Passing public tests.
+- `results/workflow_recovery_report.json`
+- `results/summary.md`
+
+Private evaluation will use harder workflow histories and external-state ambiguity. Do not hardcode fixture IDs or bypass Postgres, WireMock, or the recovery queue.
+

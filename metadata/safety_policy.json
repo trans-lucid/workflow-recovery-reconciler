@@ -1,0 +1,30 @@
+{
+  "template_id": "workflow-recovery-reconciler",
+  "no_external_credentials": true,
+  "no_cloud_calls": true,
+  "no_startup_source_copying": true,
+  "no_real_customer_data": true,
+  "allowed_local_services": [
+    "postgres",
+    "wiremock",
+    "localstack-sqs"
+  ],
+  "candidate_main_forbidden_paths": [
+    "solution/",
+    "evaluator/",
+    "tests_hidden/",
+    "fixtures_hidden/",
+    "SOLUTION.md",
+    "rubric.md",
+    "expected/",
+    "source-dossiers/",
+    "template.yaml",
+    "metadata/"
+  ],
+  "required_scans": [
+    "tools/scan_safety.py",
+    "external secret scanner before customer source-slice mode"
+  ],
+  "source_slice_mode": "disabled_by_default"
+}
+

@@ -1,0 +1,7 @@
+{
+  "duplicate_external_start": "fixed",
+  "stale_state_misclassified": "fixed",
+  "missing_attempt_history": "fixed",
+  "unsafe_retry": "fixed"
+}
+

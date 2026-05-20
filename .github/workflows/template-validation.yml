@@ -1,0 +1,49 @@
+name: Template Validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install root tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e "candidate[test]"
+
+      - name: Validate solution
+        run: make PYTHON=python validate-solution
+
+      - name: Validate expected starter failure
+        run: make PYTHON=python validate-candidate-main-expected-failure
+
+      - name: Render template
+        run: make PYTHON=python render
+
+      - name: Safety scan
+        run: make PYTHON=python scan-safety
+
+      - name: Rendered repo smoke
+        run: make PYTHON=python validate-rendered-smoke
+
+      - name: Docker-backed integration expected failure
+        run: make PYTHON=python validate-docker-integration
+
+      - name: Dump Docker logs on failure
+        if: failure()
+        run: |
+          cd candidate
+          docker compose logs || true
+          docker compose down -v || true
+

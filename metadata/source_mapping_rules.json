@@ -1,0 +1,57 @@
+{
+  "template_id": "workflow-recovery-reconciler",
+  "positive_signals": [
+    "workflow",
+    "temporal",
+    "activity",
+    "retry",
+    "reconciler",
+    "sweeper",
+    "lease",
+    "background job",
+    "worker",
+    "provisioning",
+    "deployment",
+    "workspace creation",
+    "vm startup",
+    "document processing",
+    "state machine",
+    "external service",
+    "dead letter",
+    "sqs",
+    "queue"
+  ],
+  "negative_signals": [
+    "pure frontend only",
+    "static marketing site",
+    "no backend",
+    "no async jobs"
+  ],
+  "stack_matches": [
+    "python",
+    "fastapi",
+    "postgres",
+    "typescript backend",
+    "node",
+    "temporal",
+    "aws sqs",
+    "wiremock"
+  ],
+  "best_roles": [
+    "Backend Engineer",
+    "Platform Engineer",
+    "Staff Backend",
+    "Infrastructure Engineer"
+  ],
+  "personalization_knobs": [
+    "workflow type",
+    "external service domain",
+    "resource names",
+    "state labels",
+    "lease timeout",
+    "retry policy",
+    "operator report fields",
+    "hidden failure emphasis"
+  ]
+}
+

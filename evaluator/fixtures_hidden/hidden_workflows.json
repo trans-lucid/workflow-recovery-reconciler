@@ -1,0 +1,18 @@
+{
+  "hidden-complete": {
+    "external_job_id": "ext-hidden",
+    "state": "completed",
+    "evidence": "external audit says complete"
+  },
+  "hidden-unknown": {
+    "external_job_id": null,
+    "state": "unknown",
+    "evidence": "no external record found"
+  },
+  "hidden-invalid": {
+    "external_job_id": "ext-invalid",
+    "state": "non_retryable",
+    "evidence": "quota policy rejected request"
+  }
+}
+

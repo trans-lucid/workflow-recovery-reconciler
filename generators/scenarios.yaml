@@ -1,0 +1,22 @@
+scenarios:
+  public:
+    seed: 20260520
+    workflows:
+      - request_key: public-workspace-001
+        workflow_type: workspace_create
+        resource_id: workspace-alpha
+        external_state: running
+      - request_key: public-completed
+        workflow_type: workspace_create
+        resource_id: workspace-beta
+        external_state: completed
+  hidden:
+    seed: 20260521
+    workflows:
+      - request_key: hidden-complete
+        external_state: completed
+      - request_key: hidden-unknown
+        external_state: unknown
+      - request_key: hidden-invalid
+        external_state: non_retryable
+
