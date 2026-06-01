@@ -50,16 +50,26 @@ def fail(messages: list[str]) -> None:
 
 
 def forbidden_paths() -> list[str]:
+    baseline = [
+        ".env",
+        ".env.local",
+        "__pycache__/",
+        ".pytest_cache/",
+        "*.egg-info",
+        "node_modules/",
+    ]
     if MANIFEST.exists():
         data = json.loads(MANIFEST.read_text())
         configured = data.get("candidate_main_forbidden_paths")
         if isinstance(configured, list) and configured:
-            return [str(item) for item in configured]
-    return DEFAULT_FORBIDDEN
+            return sorted(set([str(item) for item in configured] + baseline))
+    return sorted(set(DEFAULT_FORBIDDEN + baseline))
 
 
 def is_forbidden(rel: Path, rule: str) -> bool:
     normalized = rel.as_posix()
+    if rule.startswith("*."):
+        return rel.name.endswith(rule[1:])
     stripped = rule.rstrip("/")
     if rule.endswith("/"):
         return normalized == stripped or normalized.startswith(stripped + "/")

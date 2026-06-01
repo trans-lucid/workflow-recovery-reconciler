@@ -3,6 +3,12 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
+cleanup_generated_transients() {
+  find "$ROOT/generated" -type d \( -name "__pycache__" -o -name ".pytest_cache" -o -name "*.egg-info" \) -prune -exec rm -rf {} + 2>/dev/null || true
+}
+
+trap cleanup_generated_transients EXIT
+
 cd "$ROOT/generated/main"
 python3 -m pip install -e ".[test]" >/tmp/workflow-render-main-install.txt
 set +e
@@ -25,4 +31,3 @@ python3 -m pip install -e ".[test]" >/tmp/workflow-render-solution-install.txt
 EVAL_TARGET="$PWD/solution" python3 -m pytest tests/public/test_unit_contract.py solution/tests evaluator/tests_hidden
 
 echo "rendered repo smoke validation passed"
-

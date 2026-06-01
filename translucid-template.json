@@ -8,6 +8,8 @@
   "validate_solution_command": "make validate-solution",
   "validate_expected_failure_command": "make validate-candidate-main-expected-failure",
   "validate_docker_command": "make validate-docker-integration",
+  "validate_personalization_command": "make validate-personalization",
+  "check_published_repo_command": "make check-published-repo",
   "validate_all_command": "make validate",
   "generated_candidate_dir": "generated/main",
   "generated_solution_dir": "generated/solution",
@@ -40,5 +42,61 @@
     "source-dossiers/",
     "template.yaml",
     "metadata/"
-  ]
+  ],
+  "personalization_contract": {
+    "difficulty_levels": [
+      "junior",
+      "senior",
+      "staff"
+    ],
+    "allowed_focus_axes": [
+      "workflow state recovery",
+      "reconciliation",
+      "retry safety",
+      "attempt history",
+      "external truth",
+      "operator reporting"
+    ],
+    "scenario_knobs": {
+      "entity_count": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "failure_modes": [
+        "basic",
+        "multi_step",
+        "ambiguous"
+      ],
+      "hidden_strictness": [
+        "basic",
+        "production",
+        "adversarial"
+      ],
+      "reporting_depth": [
+        "short",
+        "operator",
+        "executive_plus_operator"
+      ]
+    },
+    "generator_commands": [
+      "python3 generators/generate_fixture.py --profile template_context.json"
+    ],
+    "candidate_forbidden_markers": [
+      "## Personalized Context",
+      "source_profile",
+      "source_profile_summary",
+      "hidden tests",
+      "SOLUTION.md",
+      "evaluator",
+      "source-dossiers"
+    ],
+    "solution_cue_requirements": [
+      "focus being evaluated",
+      "expected failure classes",
+      "hidden test intent",
+      "scoring rubric",
+      "debrief answer cues"
+    ]
+  }
 }

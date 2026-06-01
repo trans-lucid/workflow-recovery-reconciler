@@ -36,7 +36,10 @@ Root validation gates:
 make validate-solution
 make validate-candidate-main-expected-failure
 make render
+make check-render
+make check-published-repo
 make scan-safety
+make validate-personalization
 make validate-rendered-smoke
 make validate-docker-integration
 make validate
@@ -59,7 +62,10 @@ Normal use:
 
 ```bash
 make render
+make check-render
+make check-published-repo
 make scan-safety
+make validate-personalization
 make validate-solution
 make validate-candidate-main-expected-failure
 make validate-docker-integration
@@ -73,4 +79,3 @@ Use:
 Do not manually copy `candidate/` to root.
 Do not manually restructure `solution/`.
 Do not edit hidden tests or evaluator imports unless a validation command fails and the exact blocker is recorded.
-

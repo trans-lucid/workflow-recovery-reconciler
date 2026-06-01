@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: check-render install validate-solution validate-candidate-main-expected-failure validate-docker-integration validate-rendered-smoke render scan-safety validate clean
+.PHONY: check-render check-published-repo check-published-repo-after-personalization check-published-repo-after-smoke install validate-solution validate-candidate-main-expected-failure validate-docker-integration validate-rendered-smoke validate-personalization render scan-safety validate clean
 
 install:
 	$(PYTHON) -m pip install --upgrade pip
@@ -27,9 +27,20 @@ scan-safety:
 check-render:
 	$(PYTHON) tools/check_render_contract.py
 
-validate: validate-solution validate-candidate-main-expected-failure render check-render scan-safety validate-rendered-smoke validate-docker-integration
+check-published-repo:
+	$(PYTHON) tools/check_published_repo_contract.py --candidate-dir generated/main --solution-dir generated/solution --manifest translucid-template.json
+
+check-published-repo-after-personalization:
+	$(MAKE) check-published-repo
+
+check-published-repo-after-smoke:
+	$(MAKE) check-published-repo
+
+validate-personalization:
+	$(PYTHON) tools/validate_personalization.py
+
+validate: validate-solution validate-candidate-main-expected-failure render check-render check-published-repo scan-safety validate-personalization check-published-repo-after-personalization validate-rendered-smoke check-published-repo-after-smoke validate-docker-integration
 
 clean:
 	rm -rf generated
 	cd candidate && docker compose down -v || true
-

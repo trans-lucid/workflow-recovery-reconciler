@@ -35,13 +35,25 @@ jobs:
         run: make PYTHON=python render
 
       - name: Check render contract
-        run: make check-render
+        run: make PYTHON=python check-render
+
+      - name: Check published repo contract
+        run: make PYTHON=python check-published-repo
 
       - name: Safety scan
         run: make PYTHON=python scan-safety
 
+      - name: Validate personalization
+        run: make PYTHON=python validate-personalization
+
+      - name: Check personalized published repo contract
+        run: make PYTHON=python check-published-repo
+
       - name: Rendered repo smoke
         run: make PYTHON=python validate-rendered-smoke
+
+      - name: Check published repo contract after smoke
+        run: make PYTHON=python check-published-repo
 
       - name: Docker-backed integration expected failure
         run: make PYTHON=python validate-docker-integration
@@ -52,4 +64,3 @@ jobs:
           cd candidate
           docker compose logs || true
           docker compose down -v || true
-
